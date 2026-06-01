@@ -1,6 +1,6 @@
 # Calculadora de Arroba · Boi Gordo
 
-Projeto acadêmico Flask para cálculo de arrobas, valor total e análise de rendimento de carcaça do boi gordo.
+Projeto acadêmico Flask para cálculo de arrobas, valor total e análise de rendimento de carcaça do boisao.
 
 **Fórmulas principais:**
 - 1 Arroba = 15 kg
@@ -124,7 +124,7 @@ calculadoradoarroba/
 
 ## 👨‍💻 Autor
 
-Projeto acadêmico para atividade de programação.
+Samuel Nunes 
 
 ---
 
