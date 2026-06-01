@@ -1,61 +1,135 @@
-# Calculadora de Arroba
+# Calculadora de Arroba · Boi Gordo
 
-Projeto Flask simples para cálculo de arrobas e valor do boi gordo.
+Projeto acadêmico Flask para cálculo de arrobas, valor total e análise de rendimento de carcaça do boi gordo.
 
-## Arquivos
+**Fórmulas principais:**
+- 1 Arroba = 15 kg
+- Arrobas = Peso ÷ 15
+- Valor Total = Arrobas × Preço/@
 
-- `app.py` - servidor Flask
-- `requirements.txt` - dependências Python
-- `Procfile` - comando de inicialização para serviços de hospedagem
-- `templates/` - página HTML
-- `static/` - CSS e JavaScript
+---
 
-## Como rodar localmente
+## 🌐 Acesso Online (Sem instalar nada)
 
-1. Instale as dependências:
+Clique no link para acessar a calculadora diretamente:
+
+👉 **https://calculadoradoboisao.onrender.com**
+
+Funciona em qualquer navegador (PC, tablet, celular).
+
+---
+
+## 💻 Executar Localmente
+
+Se você quer rodar no seu computador:
+
+### Pré-requisitos
+- **Python 3.7+** instalado
+- **pip** (gerenciador de pacotes Python)
+
+### Passos
+
+1. **Crie uma pasta para o projeto** (ou use uma já existente)
+
+2. **Abra o terminal/PowerShell** na pasta do projeto
+
+3. **Instale as dependências:**
    ```bash
    pip install -r requirements.txt
    ```
-2. Execute:
+
+4. **Execute o servidor:**
    ```bash
    python app.py
    ```
-3. Abra no navegador:
+
+5. **Abra no navegador:**
+   - Digite na barra de endereço:
    ```
-   http://127.0.0.1:5000/
+   http://127.0.0.1:5000
+   ```
+   ou
+   ```
+   http://localhost:5000
    ```
 
-## Deploy público recomendado
+6. **Use a calculadora** normalmente
 
-Este projeto pode ser hospedado em serviços como Render, Railway ou PythonAnywhere.
+---
 
-### Deploy no Render
+## 📂 Estrutura de Arquivos
 
-1. Crie um repositório GitHub com esta pasta.
-2. Crie conta em https://render.com.
-3. No Render:
-   - New → Web Service
-   - Conecte ao GitHub e escolha o repositório
-   - Build Command: `pip install -r requirements.txt`
-   - Start Command: `gunicorn app:app`
-4. O Render fornece um link público que pode ser compartilhado.
+```
+calculadoradoarroba/
+├── app.py                    # Servidor Flask (backend)
+├── requirements.txt          # Dependências Python
+├── Procfile                  # Para deployment no Render
+├── README.md                 # Este arquivo
+├── static/
+│   ├── css/
+│   │   └── style.css        # Estilos da página
+│   └── js/
+│       └── main.js          # Lógica JavaScript (frontend)
+└── templates/
+    └── index.html           # Página HTML principal
+```
 
-### Deploy no Railway
+---
 
-1. Crie conta em https://railway.app.
-2. Crie novo projeto e conecte com o repositório.
-3. Configure o comando de inicialização:
-   - Start Command: `gunicorn app:app`
-4. O Railway fornece um link público.
+## 🚀 Funcionalidades
 
-### Deploy no PythonAnywhere
+✅ Cálculo de arrobas do animal vivo  
+✅ Cálculo de arrobas da carcaça (com rendimento configurável)  
+✅ Cálculo de valor total do animal  
+✅ Cálculo de preço por kg  
+✅ Cotações de referência por região  
+✅ Histórico de cálculos  
+✅ Interface responsiva (mobile, tablet, desktop)  
+✅ Tema claro/escuro  
 
-1. Crie conta em https://www.pythonanywhere.com.
-2. Crie um novo Web App com Python e Flask.
-3. Carregue os arquivos no diretório do site.
-4. Configure o WSGI para apontar para `app.app`.
+---
 
-## Observação
+## 📋 Como usar a calculadora
 
-- `app.py` já está pronto para aceitar conexões externas no host `0.0.0.0`.
-- Se quiser um link temporário sem hospedar, use `ngrok http 5000` enquanto o app estiver rodando.
+1. **Informe o peso do animal** (em kg)
+2. **Informe o preço da arroba** (em R$)
+3. **Rendimento de carcaça** (opcional, padrão: 52%)
+4. Clique em **Calcular Valor**
+5. Veja os resultados:
+   - Arrobas do peso vivo
+   - Peso e arrobas da carcaça
+   - Valor total estimado
+   - Preço por kg
+
+---
+
+## 🛠 Tecnologias utilizadas
+
+- **Backend:** Python + Flask
+- **Frontend:** HTML5 + CSS3 + JavaScript (vanilla)
+- **Hospedagem:** Render.com
+- **Ícones:** Tabler Icons
+- **Fonts:** Google Fonts (Playfair Display + DM Sans)
+
+---
+
+## 📝 Notas
+
+- A calculadora usa **1 arroba = 15 kg** (padrão brasileiro)
+- O rendimento padrão é **52%** para boi gordo (configurável entre 20% e 75%)
+- As cotações são apenas **referências históricas**
+- Os cálculos são feitos localmente no navegador (sem dados armazenados)
+
+---
+
+## 👨‍💻 Autor
+
+Projeto acadêmico para atividade de programação.
+
+---
+
+## 📞 Suporte
+
+- **Acesso online:** https://calculadoradoboisao.onrender.com
+- **Repositório:** https://github.com/samuelncosta/calculadoradoboisao
+- Para rodar localmente, certifique-se de ter Python e pip instalados
