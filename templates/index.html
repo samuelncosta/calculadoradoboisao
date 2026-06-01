@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de Arroba · Boi Gordo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-icon"><i class="ti ti-map-pin-bolt"></i></span>
+        <div class="brand-text">
+          <span class="brand-title">AgroCalc</span>
+          <span class="brand-subtitle">Boi Gordo · Arroba</span>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <button class="btn-theme" id="btnTheme" aria-label="Alternar tema">
+          <i class="ti ti-moon" id="themeIcon"></i>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <i class="ti ti-chart-line"></i> Sistema Educacional Agropecuário
+      </div>
+      <h1 class="hero-title">Calculadora do<br><em>Preço da Arroba</em></h1>
+      <p class="hero-desc">
+        Insira o peso do animal e o preço da arroba para obter
+        arrobas totais, valor do boi e análise de rendimento de carcaça.
+      </p>
+      <div class="hero-formula">
+        <span><strong>1 Arroba</strong> = 15 kg</span>
+        <span class="sep">·</span>
+        <span><strong>Arrobas</strong> = Peso ÷ 15</span>
+        <span class="sep">·</span>
+        <span><strong>Valor Total</strong> = Arrobas × Preço/@</span>
+      </div>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container">
+      <div class="calc-grid">
+
+        <!-- FORMULÁRIO -->
+        <section class="form-panel" aria-label="Formulário de cálculo">
+          <div class="panel-header">
+            <i class="ti ti-calculator" aria-hidden="true"></i>
+            <h2>Dados do Animal</h2>
+          </div>
+
+          <div class="field-group">
+            <label for="pesoBoi" class="field-label">
+              <i class="ti ti-weight" aria-hidden="true"></i>
+              Peso do Animal <span class="unit-tag">kg</span>
+            </label>
+            <div class="input-wrap">
+              <input type="number" id="pesoBoi" class="field-input"
+                placeholder="ex: 480" min="1" max="2000" step="0.1" autocomplete="off"/>
+              <span class="input-suffix">kg</span>
+            </div>
+            <span class="field-hint">Peso vivo do boi gordo em quilogramas</span>
+          </div>
+
+          <div class="field-group">
+            <label for="precoArroba" class="field-label">
+              <i class="ti ti-currency-real" aria-hidden="true"></i>
+              Preço da Arroba <span class="unit-tag">R$/@</span>
+            </label>
+            <div class="input-wrap">
+              <span class="input-prefix">R$</span>
+              <input type="number" id="precoArroba" class="field-input has-prefix"
+                placeholder="ex: 290,00" min="0.01" step="0.01" autocomplete="off"/>
+            </div>
+            <span class="field-hint">Cotação atual da arroba do boi gordo</span>
+          </div>
+
+          <div class="field-group">
+            <label for="rendimento" class="field-label">
+              <i class="ti ti-percentage" aria-hidden="true"></i>
+              Rendimento de Carcaça <span class="unit-tag optional">opcional</span>
+            </label>
+            <div class="input-wrap">
+              <input type="range" id="rendimentoRange" class="range-input"
+                min="20" max="75" value="52" step="0.5"/>
+              <input type="number" id="rendimento" class="field-input range-number"
+                value="52" min="20" max="75" step="0.5"/>
+              <span class="input-suffix">%</span>
+            </div>
+            <span class="field-hint">Padrão: 52% para boi gordo. Intervalo: 20%–75%</span>
+          </div>
+
+          <div class="quick-refs">
+            <p class="quick-title"><i class="ti ti-map-pin"></i> Cotações de referência</p>
+            <div class="refs-list" id="refsList">
+              <span class="ref-loading">Carregando…</span>
+            </div>
+          </div>
+
+          <div class="alert alert-error" id="alertError" role="alert" aria-live="polite" hidden>
+            <i class="ti ti-alert-circle"></i>
+            <span id="errorMsg"></span>
+          </div>
+
+          <button class="btn-calcular" id="btnCalcular">
+            <span class="btn-label"><i class="ti ti-bolt"></i> Calcular Valor</span>
+            <span class="btn-loading" hidden>
+              <i class="ti ti-loader-2 spin"></i> Calculando…
+            </span>
+          </button>
+        </section>
+
+        <!-- RESULTADOS -->
+        <section class="results-panel" id="resultsPanel" aria-live="polite">
+          <div class="results-placeholder" id="resultsPlaceholder">
+            <i class="ti ti-clipboard-data placeholder-icon"></i>
+            <p>Os resultados aparecerão aqui<br>após o cálculo</p>
+          </div>
+
+          <div class="results-content" id="resultsContent" hidden>
+            <div class="panel-header">
+              <i class="ti ti-report-analytics" aria-hidden="true"></i>
+              <h2>Resultado do Cálculo</h2>
+              <span class="result-timestamp" id="resultTimestamp"></span>
+            </div>
+
+            <div class="card card-highlight">
+              <div class="card-label">
+                <i class="ti ti-currency-real"></i> Valor Total do Animal
+              </div>
+              <div class="card-value big" id="rValorTotal">—</div>
+              <div class="card-sub" id="rBaseCarcaca"></div>
+            </div>
+
+            <div class="cards-grid">
+              <div class="card card-metric">
+                <div class="metric-icon c-green"><i class="ti ti-scale"></i></div>
+                <div class="metric-body">
+                  <span class="metric-label">Arrobas (peso vivo)</span>
+                  <span class="metric-value" id="rArrobasVivo">—</span>
+                </div>
+              </div>
+              <div class="card card-metric">
+                <div class="metric-icon c-amber"><i class="ti ti-weight"></i></div>
+                <div class="metric-body">
+                  <span class="metric-label">Arrobas (carcaça)</span>
+                  <span class="metric-value" id="rArrobasCarcaca">—</span>
+                </div>
+              </div>
+              <div class="card card-metric">
+                <div class="metric-icon c-teal"><i class="ti ti-meat"></i></div>
+                <div class="metric-body">
+                  <span class="metric-label">Peso de Carcaça</span>
+                  <span class="metric-value" id="rPesoCarcaca">—</span>
+                </div>
+              </div>
+              <div class="card card-metric">
+                <div class="metric-icon c-blue"><i class="ti ti-cash"></i></div>
+                <div class="metric-body">
+                  <span class="metric-label">Preço por kg</span>
+                  <span class="metric-value" id="rPrecoPorKg">—</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-card">
+              <p class="table-title">
+                <i class="ti ti-table"></i> Comparativo: Peso Vivo vs Carcaça
+              </p>
+              <table class="result-table">
+                <thead>
+                  <tr><th>Base</th><th>Arrobas</th><th>Valor Total</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Peso Vivo</td>
+                    <td id="tArrobasVivo">—</td>
+                    <td id="tValorVivo">—</td>
+                  </tr>
+                  <tr class="row-highlight">
+                    <td>Carcaça <span class="badge" id="tRendBadge">52%</span></td>
+                    <td id="tArrobasCarcaca">—</td>
+                    <td id="tValorCarcaca">—</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <button class="btn-reset" id="btnReset">
+              <i class="ti ti-refresh"></i> Novo Cálculo
+            </button>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- HISTÓRICO -->
+      <section class="history-section" id="historySection" hidden>
+        <div class="section-header">
+          <h2><i class="ti ti-history"></i> Histórico de Cálculos</h2>
+          <button class="btn-clear-history" id="btnClearHistory">
+            <i class="ti ti-trash"></i> Limpar
+          </button>
+        </div>
+        <div class="history-list" id="historyList"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        <i class="ti ti-school"></i>
+        Projeto Acadêmico · Sistemas Agropecuários ·
+        <strong>1 @ = 15 kg</strong> · Arrobas = Peso ÷ 15 · Valor = Arrobas × Preço/@
+      </p>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

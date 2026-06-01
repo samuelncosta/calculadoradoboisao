@@ -1,0 +1,43 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+.venv/
+build/
+dist/
+*.egg-info/
+.eggs/
+.python-version
+pip-log.txt
+pip-delete-this-directory.txt
+htmlcov/
+.coverage
+.coverage.*
+.tox/
+.nox/
+.cache
+.pytest_cache/
+.ipynb_checkpoints/
+venv/
+ENV/
+env.bak/
+__pycache__/
+*.egg
+*.manifest
+*.spec
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# OS files
+*.log
+*.sqlite3
+
+# Python virtual envs
+venv/
+ENV/
+.venv/
