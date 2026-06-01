@@ -1,5 +1,7 @@
 # Calculadora de Arroba · Boi Gordo
 
+Não entendi totalmente como deveria ser enviado então compactei o arquivo! 
+
 Projeto acadêmico Flask para cálculo de arrobas, valor total e análise de rendimento de carcaça do boisao.
 
 **Fórmulas principais:**
@@ -106,7 +108,7 @@ calculadoradoarroba/
 ## 🛠 Tecnologias utilizadas
 
 - **Backend:** Python + Flask
-- **Frontend:** HTML5 + CSS3 + JavaScript (vanilla)
+- **Frontend:** HTML5 + CSS3 + JavaScript
 - **Hospedagem:** Render.com
 - **Ícones:** Tabler Icons
 - **Fonts:** Google Fonts (Playfair Display + DM Sans)
